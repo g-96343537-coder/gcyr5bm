@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Latihan Simpulan Bahasa (Tahun 5)</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+body {
+  font-family: "Comic Neue", sans-serif;
+  font-size: 14px;
+  background: url('https://wallpapercave.com/wp/tntvNYZ.jpg') no-repeat center center fixed;
+  padding: 20px;
+  color: #000;
+}
+h1 { font-size: 2rem; text-align: center; margin-bottom: 20px; }
+#q-index { font-size: 1.2rem; margin-bottom: 12px; }
+#question { font-size: 1.4rem; margin-bottom: 20px; }
+.opt {
+  font-size: 1.3rem;
+  padding: 12px 18px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  border: 2px solid #d0d0d0;
+  background: rgba(255,255,255,0.9);
+  cursor: pointer;
+}
+.opt.correct { background: rgba(90,220,100,0.9); border-color:#56d56c; }
+.opt.wrong { background: rgba(255,200,200,0.9); border-color:#ff7b7b; }
+#nextBtn {
+  font-size: 1.4rem;
+  padding: 12px 24px;
+  background: #7dbbff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 18px;
+}
+#restart { font-size: 1.1rem; padding: 6px 14px; margin-left:10px; }
+.score { font-size: 1.3rem; margin-top: 12px; }
+</style>
+</head>
+<body>
+<div id="wrapper" style="background:rgba(255,255,255,0.85); padding:20px; border-radius:16px; max-width:800px; margin:0 auto;">
+<h1>Latihan Simpulan Bahasa (Tahun 5)</h1>
+<div id="q-index">Soalan <span id="cur">1</span> / <span id="total">0</span></div>
+<div id="question"></div>
+<div id="options"></div>
+<div class="controls">
+  <div class="score" id="score">Markah: 0</div>
+  <button id="nextBtn" disabled>Soalan Seterusnya</button>
+  <button id="restart">Ulang Semula</button>
+</div>
+
+<script>
+// ====== Data Baru (Simpulan Bahasa Tahun 5) ======
+const rawData = `
+1,Puan Aminah __________ apabila melihat pelbagai jenis kain batik yang cantik di kedai itu.,A. mata duitan,B. rambang mata,C. gelap mata,D. mata keranjang,B
+2,Penduduk kampung memuji sikap pemuda itu yang __________ kerana sering membantu membersihkan surau.,A. berat tulang,B. ringan tulang,C. tulang belakang,D. mandi peluh,B
+3,Berita tentang kejayaan pasukan bola sepak sekolah itu menjadi __________ penduduk setempat.,A. buah mulut,B. buah tangan,C. mulut murai,D. mulut tempayan,A
+4,Lukisan yang cantik ini adalah hasil __________ pelukis terkenal tanah air.,A. bekas tangan,B. campur tangan,C. panjang tangan,D. tangan terbuka,A
+5,Cikgu Azman menasihati kami supaya tidak __________ semasa memilih ahli jawatankuasa kelas.,A. pilih kasih,B. ambil hati,C. berat sebelah,D. hati batu,A
+6,Kita mestilah __________ apabila guru sedang mengajar di hadapan kelas supaya tidak ketinggalan ilmu.,A. pasang kaki,B. pasang telinga,C. tajam pendengaran,D. pekak badak,B
+7,Ayah tiba-tiba __________ apabila mendapat tahu adik ponteng sekolah semalam.,A. naik angin,B. naik darah,C. ambil berat,D. dingin hati,A
+8,Perompak itu segera __________ sebaik sahaja mendengar bunyi siren kereta polis.,A. angkat kaki,B. angkat bakul,C. kaki ayam,D. kaki bangku,A
+9,Encik Tan tidak mahu __________ dalam pertelingkahan antara jiran-jirannya itu.,A. lepas tangan,B. campur tangan,C. berat tangan,D. hulur tangan,B
+10,Sikap gadis yang __________ itu menyebabkan dia tidak disukai oleh rakan-rakannya.,A. hidung tinggi,B. muka tembok,C. kepala batu,D. hati waja,A
+11,Kontraktor itu ditangkap oleh polis kerana cuba memberi __________ kepada pegawai kerajaan.,A. duit kopi,B. tumbuk rusuk,C. makan suap,D. serkap jarang,B
+12,Sebagai __________, Kamal sentiasa mendapat perhatian dan hadiah istimewa daripada ibu bapanya.,A. anak emas,B. anak angkat,C. anak buah,D. anak kandung,A
+13,Janganlah kita membuat __________ dengan menuduh orang lain mencuri tanpa bukti yang kukuh.,A. serkap jarang,B. tangkap muat,C. buruk sangka,D. cakap besar,A
+14,Sikap Munir yang __________ itu amat bahaya kerana dia berpura-pura baik di hadapan kita tetapi mengata di belakang.,A. lidah biawak,B. talam dua muka,C. bermuka-muka,D. mulut manis,B
+15,Murid yang __________ itu dapat menyelesaikan soalan Matematik yang sukar dengan cepat.,A. otak cair,B. otak udang,C. kepala angin,D. akal kancil,A
+`;
+
+// ====== Parse CSV ======
+const data = rawData.trim().split("\n").map(line=>{
+  const parts = line.split(",");
+  const answer = parts.pop().trim().toUpperCase();
+  const qtext = parts.shift().trim();
+  const opts = parts.map(op => op.replace(/^[A-D]\.\s*/, "").trim());
+  return { q: qtext, options: opts, answer: {A:0,B:1,C:2,D:3}[answer] };
+});
+
+document.getElementById('total').textContent = data.length;
+let current=0, score=0, answered=false;
+
+function loadQuestion(){
+  answered=false;
+  document.getElementById('nextBtn').disabled = true;
+  const q = data[current];
+  document.getElementById('question').innerHTML = q.q;
+  document.getElementById('cur').textContent = current+1;
+  const optsDiv = document.getElementById('options');
+  optsDiv.innerHTML = '';
+  q.options.forEach((opt,i)=>{
+    const div = document.createElement('div');
+    div.className='opt';
+    div.innerHTML = opt;
+    div.addEventListener('click',()=>selectOption(div,i));
+    optsDiv.appendChild(div);
+  });
+  MathJax.typesetPromise();
+}
+
+function selectOption(el,index){
+  if(answered) return;
+  answered=true;
+  const q = data[current];
+  const all = document.querySelectorAll('.opt');
+  all.forEach((d,i)=>{ if(i===q.answer) d.classList.add('correct'); });
+  if(index!==q.answer) el.classList.add('wrong'); else score++;
+  document.getElementById('score').textContent='Markah: '+score;
+  document.getElementById('nextBtn').disabled=false;
+}
+
+document.getElementById('nextBtn').addEventListener('click',()=>{
+  current++;
+  if(current>=data.length){
+    alert('Latihan tamat! Jumlah markah: ' + score);
+    return;
+  }
+  loadQuestion();
+});
+
+document.getElementById('restart').addEventListener('click',()=>{
+  if(confirm('Adakah anda mahu mengulang semula latihan?')){
+    current=0;
+    score=0;
+    document.getElementById('score').textContent='Markah: 0';
+    loadQuestion();
+  }
+});
+
+loadQuestion();
+</script>
+</div>
+</body>
+</html>
