@@ -55,31 +55,34 @@ h1 { font-size: 2rem; text-align: center; margin-bottom: 20px; }
 <script>
 // ====== Data Baru (Simpulan Bahasa Tahun 5) ======
 const rawData = `
-1,Puan Aminah __________ apabila melihat pelbagai jenis kain batik yang cantik di kedai itu.,A. mata duitan,B. rambang mata,C. gelap mata,D. mata keranjang,B
-2,Penduduk kampung memuji sikap pemuda itu yang __________ kerana sering membantu membersihkan surau.,A. berat tulang,B. ringan tulang,C. tulang belakang,D. mandi peluh,B
-3,Berita tentang kejayaan pasukan bola sepak sekolah itu menjadi __________ penduduk setempat.,A. buah mulut,B. buah tangan,C. mulut murai,D. mulut tempayan,A
-4,Lukisan yang cantik ini adalah hasil __________ pelukis terkenal tanah air.,A. bekas tangan,B. campur tangan,C. panjang tangan,D. tangan terbuka,A
-5,Cikgu Azman menasihati kami supaya tidak __________ semasa memilih ahli jawatankuasa kelas.,A. pilih kasih,B. ambil hati,C. berat sebelah,D. hati batu,A
-6,Kita mestilah __________ apabila guru sedang mengajar di hadapan kelas supaya tidak ketinggalan ilmu.,A. pasang kaki,B. pasang telinga,C. tajam pendengaran,D. pekak badak,B
-7,Ayah tiba-tiba __________ apabila mendapat tahu adik ponteng sekolah semalam.,A. naik angin,B. naik darah,C. ambil berat,D. dingin hati,A
-8,Perompak itu segera __________ sebaik sahaja mendengar bunyi siren kereta polis.,A. angkat kaki,B. angkat bakul,C. kaki ayam,D. kaki bangku,A
-9,Encik Tan tidak mahu __________ dalam pertelingkahan antara jiran-jirannya itu.,A. lepas tangan,B. campur tangan,C. berat tangan,D. hulur tangan,B
-10,Sikap gadis yang __________ itu menyebabkan dia tidak disukai oleh rakan-rakannya.,A. hidung tinggi,B. muka tembok,C. kepala batu,D. hati waja,A
-11,Kontraktor itu ditangkap oleh polis kerana cuba memberi __________ kepada pegawai kerajaan.,A. duit kopi,B. tumbuk rusuk,C. makan suap,D. serkap jarang,B
-12,Sebagai __________, Kamal sentiasa mendapat perhatian dan hadiah istimewa daripada ibu bapanya.,A. anak emas,B. anak angkat,C. anak buah,D. anak kandung,A
-13,Janganlah kita membuat __________ dengan menuduh orang lain mencuri tanpa bukti yang kukuh.,A. serkap jarang,B. tangkap muat,C. buruk sangka,D. cakap besar,A
-14,Sikap Munir yang __________ itu amat bahaya kerana dia berpura-pura baik di hadapan kita tetapi mengata di belakang.,A. lidah biawak,B. talam dua muka,C. bermuka-muka,D. mulut manis,B
-15,Murid yang __________ itu dapat menyelesaikan soalan Matematik yang sukar dengan cepat.,A. otak cair,B. otak udang,C. kepala angin,D. akal kancil,A
+1,Puan Aminah __________ apabila melihat pelbagai jenis kain batik yang cantik di kedai itu.,A.mata duitan,B.rambang mata,C.gelap mata,D.mata keranjang,B
+2,Penduduk kampung memuji sikap pemuda itu yang __________ kerana sering membantu membersihkan surau.,A.berat tulang,B.ringan tulang,C.tulang belakang,D.mandi peluh,B
+3,Berita tentang kejayaan pasukan bola sepak sekolah itu menjadi __________ penduduk setempat.,A.buah mulut,B.buah tangan,C.mulut murai,D.mulut tempayan,A
+4,Lukisan yang cantik ini adalah hasil __________ pelukis terkenal tanah air.,A.bekas tangan,B.campur tangan,C.panjang tangan,D.tangan terbuka,A
+5,Cikgu Azman menasihati kami supaya tidak __________ semasa memilih ahli jawatankuasa kelas.,A.pilih kasih,B.ambil hati,C.berat sebelah,D.hati batu,A
+6,Kita mestilah __________ apabila guru sedang mengajar di hadapan kelas supaya tidak ketinggalan ilmu.,A.pasang kaki,B.pasang telinga,C.tajam pendengaran,D.pekak badak,B
+7,Ayah tiba-tiba __________ apabila mendapat tahu adik ponteng sekolah semalam.,A.naik angin,B.naik darah,C.ambil berat,D.dingin hati,A
+8,Perompak itu segera __________ sebaik sahaja mendengar bunyi siren kereta polis.,A.angkat kaki,B.angkat bakul,C.kaki ayam,D.kaki bangku,A
+9,Encik Tan tidak mahu __________ dalam pertelingkahan antara jiran-jirannya itu.,A.lepas tangan,B.campur tangan,C.berat tangan,D.hulur tangan,B
+10,Sikap gadis yang __________ itu menyebabkan dia tidak disukai oleh rakan-rakannya.,A.hidung tinggi,B.muka tembok,C.kepala batu,D.hati waja,A
+11,Kontraktor itu ditangkap oleh polis kerana cuba memberi __________ kepada pegawai kerajaan.,A.duit kopi,B.tumbuk rusuk,C.makan suap,D.serkap jarang,B
+12,Sebagai __________, Kamal sentiasa mendapat perhatian dan hadiah istimewa daripada ibu bapanya.,A.anak emas,B.anak angkat,C.anak buah,D.anak kandung,A
+13,Janganlah kita membuat __________ dengan menuduh orang lain mencuri tanpa bukti yang kukuh.,A.serkap jarang,B.tangkap muat,C.buruk sangka,D.cakap besar,A
+14,Sikap Munir yang __________ itu amat bahaya kerana dia berpura-pura baik di hadapan kita tetapi mengata di belakang.,A.lidah biawak,B.talam dua muka,C.bermuka-muka,D.mulut manis,B
+15,Murid yang __________ itu dapat menyelesaikan soalan Matematik yang sukar dengan cepat.,A.otak cair,B.otak udang,C.kepala angin,D.akal kancil,A
 `;
 
 // ====== Parse CSV ======
 const data = rawData.trim().split("\n").map(line=>{
-  const parts = line.split(",");
-  const answer = parts.pop().trim().toUpperCase();
-  const qtext = parts.shift().trim();
-  const opts = parts.map(op => op.replace(/^[A-D]\.\s*/, "").trim());
-  return { q: qtext, options: opts, answer: {A:0,B:1,C:2,D:3}[answer] };
-});
+  const match = line.match(/^(\d+),(.*?),A\.(.*?),B\.(.*?),C\.(.*?),D\.(.*?),([A-D])$/);
+  if(!match) return null;
+  const [,num, qtext, optA, optB, optC, optD, ans] = match;
+  return {
+    q: qtext.trim(),
+    options: [optA,optB,optC,optD].map(s=>s.trim()),
+    answer: {A:0,B:1,C:2,D:3}[ans.trim().toUpperCase()]
+  };
+}).filter(x=>x);
 
 document.getElementById('total').textContent = data.length;
 let current=0, score=0, answered=false;
